@@ -21,16 +21,28 @@
       <i style="font-size: 40px; font-weight:bold" class="bi bi-plus-circle"></i>
       </button>
     </div>
+
+
     <div class="{currPage === 'requests' ? 'active' : ''}" style="height: 75px; display: flex; justify-content: center; align-items: center; border-right: 2px solid black">
       <button style="background-color: transparent; border: none" onclick={() => currPage = "requests"}>
       <i style="font-size: 40px" class="bi bi-list-task"></i>
       </button>
     </div>
+
+    <div class="{currPage === 'messages' ? 'active' : ''}" style="height: 75px; display: flex; justify-content: center; align-items: center; border-right: 2px solid black">
+      <button style="background-color: transparent; border: none" onclick={() => currPage = "messages"}>
+      <i style="font-size: 40px" class="bi bi-chat"></i>
+      </button>
+    </div>
+
+
     <div class="{currPage === 'user' ? 'active' : ''}" style="height: 75px; display: flex; justify-content: center; align-items: center">
         <button style="background-color: transparent; border: none" onclick={() => currPage = "user"}>
       <i style="font-size: 40px" class="bi bi-person-fill"></i>
       </button>
     </div>
+
+
   </div>
 
 </div>
@@ -39,7 +51,7 @@
   @import "../app.css";
   .footer-buttons {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 
   .footer-btn {

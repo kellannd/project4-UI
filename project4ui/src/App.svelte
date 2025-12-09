@@ -868,7 +868,44 @@
           {/if}
         {/each}
       </div>
-    {/if}
+
+
+      {:else if currPage === "messages"}
+      <div style="display: flex; flex-direction: column; align-items: center;">
+        <div style="width: calc(100vw - 40px); max-width: 500px; height: calc(100vh - 190px); margin-top: 20px; padding: 20px; background-color: white">
+          <h1 style="text-align: center; margin-bottom: 20px">Messages</h1>
+
+          {#each requests.requests as request}
+          {#if request.accepted === "true"}
+          <div style="border-bottom: 1px solid black; height: 75px; display: grid; grid-template-columns: 5fr 1fr">
+
+
+              <div style="display: flex; align-items: center; height 75px">
+                <p style="font-size: 20px; margin-left: 20px">{request.dropoffLocation}</p>
+              </div>
+
+              {#if request.id === 3}
+          <div style="display: flex; justify-content: center; align-items: center">
+                <svg height="20" width="20" xmlns="http://www.w3.org/2000/svg">
+  <circle r="7" cx="10" cy="10" fill="#166088" />
+</svg>
+                </div>
+
+                {/if}
+
+
+
+
+          </div>
+
+          {/if}
+          {/each}
+
+        </div>
+      </div>
+
+
+      {/if}
   </div>
 
   <Footer bind:currPage {requestsForUser}/>
