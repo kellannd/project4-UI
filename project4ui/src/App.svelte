@@ -388,9 +388,9 @@
   <Header />
 
   <div class="overlay" hidden={isOverlayHidden}></div>
-  <div hidden={isHiddenMain} class="popup">
+  <div hidden={isHiddenMain} class="popup" style="max-width: 450px; padding-left: 20px; padding-right: 20px">
     <div style="position: relative">
-      <div style="position: absolute; top: 10px; right: 10px;">
+      <div style="position: absolute; top: 20px; right: 0px;">
         <button
           onclick={() => {
             isOverlayHidden = true;
@@ -469,6 +469,9 @@
   >
     {#if currPage === "main"}
       <div style="display: flex; flex-direction: column; align-items: center;">
+        <div>
+          <h1>Open Requests</h1>
+        </div>
         {#each sortedRequests as request}
         {#if request.accepted === "false"}
           <button
@@ -519,14 +522,14 @@
       <div class="overlay" hidden={isOverlayHidden}></div>
       <div hidden={isHidden} class="popup">
         <div style="position: relative">
-          <div style="position: absolute; top: 10px; right: 10px;">
+          <div style="position: absolute; top: 20px; right: 20px;">
             <button onclick={closePopup} class="transparent-btn">
               <i style="font-size: 20px" class="bi bi-x-lg"></i>
             </button>
           </div>
 
           <div
-            style="display: flex; flex-direction: column; align-items: center; padding-top: 40px;
+            style="display: flex; flex-direction: column; align-items: center; padding-top: 50px;
           padding-bottom: 40px"
           >
             {#if editOption === "editCar"}
@@ -623,7 +626,7 @@
           <br /><br />
 
           <!-- edit car -->
-           <div style="background-color: white;  width: calc(100vw - 40px); max-width: 500px; margin-bottom: 20px">
+           <div style="background-color: white;  width: calc(100vw - 40px); max-width: 500px; margin-bottom: 30px; padding-bottom: 10px">
             <h2 class="user-titles">General Info</h2>
           <div
             style="display: grid; grid-template-columns: 5fr 1fr"
@@ -778,7 +781,7 @@
 </div>
 
           <!-- edit availability -->
-           <div style="background-color: white;  width: calc(100vw - 40px); max-width: 500px; margin-bottom: 40px">
+           <div style="background-color: white;  width: calc(100vw - 40px); max-width: 500px; margin-bottom: 40px; padding-bottom: 10px">
             <h2 class="user-titles">Availability</h2>
           <div
             style="display: grid; grid-template-columns: 5fr 1fr"
@@ -818,6 +821,9 @@
       </div>
     {:else if currPage === "requests"}
             <div style="display: flex; flex-direction: column; align-items: center;">
+              <div>
+                <h1>Accepted Requests</h1>
+              </div>
         {#each sortedRequests as request}
         {#if request.accepted === "true"}
           <button
