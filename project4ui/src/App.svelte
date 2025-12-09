@@ -1,4 +1,5 @@
 <script>
+  import logo from "./assets/logo.png";
   import Footer from "./lib/Footer.svelte";
   import Header from "./lib/Header.svelte";
 
@@ -62,7 +63,7 @@
         id: 3,
         comp: "true",
         pickupDay: "Friday",
-        pickupTime: "12:00",
+        pickupTime: "13:00",
         danger: "true",
         description:
           "Five puppies need transport house from Peebles, Ohio to Cincinnati, Ohio. Caution is advised",
@@ -74,7 +75,7 @@
         numberOfCats: 0,
         numberOfDogs: 5,
         carriersProvided: "true",
-        accepted: "false",
+        accepted: "true",
       },
       {
         id: 4,
@@ -196,6 +197,16 @@
     "Saturday",
     "Sunday",
   ]);
+
+  let dayOrder = {
+  'Sunday': 0,
+  'Monday': 1,
+  'Tuesday': 2,
+  'Wednesday': 3,
+  'Thursday': 4,
+  'Friday': 5,
+  'Saturday': 6
+};
 
   function updateUser() {
     switch (editOption) {
@@ -328,6 +339,7 @@
       }
     }
     sortedRequests = r
+    sortedRequests.sort((a, b) => dayOrder[a.pickupDay] - dayOrder[b.pickupDay])
   }
   requestsForUser()
 
@@ -350,9 +362,26 @@
           }
           completedRequests++
           requests = requests
+          sortRequestsByDay()
           isHiddenMain = true
           isOverlayHidden = true
   }
+
+  function sortRequestsByDay(){
+    requests.requests.sort((a, b) => dayOrder[a.pickupDay] - dayOrder[b.pickupDay])
+    console.log(requests)
+  }
+  sortRequestsByDay()
+
+  function convertTo12Hr(x){
+    const timeString12hr = new Date('1970-01-01T' + x + 'Z')
+  .toLocaleTimeString('en-US',
+    {timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'}
+  );
+  return timeString12hr
+  }
+
+  console.log("12:00" >= "12:00")
 </script>
 
 <main>
@@ -390,7 +419,7 @@
         <div style="margin-left: 10px; margin-right: 10px">
           <div>
             <p>
-              Time: {moreInfoRequest.pickupDay} at {moreInfoRequest.pickupTime}
+              Time: {moreInfoRequest.pickupDay} at {convertTo12Hr(moreInfoRequest.pickupTime)}
             </p>
           </div>
           <div>
@@ -419,21 +448,24 @@
           <p><b>Gas Money Provided?:&nbsp;</b>No</p>
         {/if}
 
+        <div style="text-align: center">
         {#if currPage === "main"}
-        <button onclick={() => {
+        <button class="accept-complete-btn" onclick={() => {
           userAcceptRequest()
-        }}>Accept</button>
+        }}>Accept Transport Request</button>
         {:else}
-        <button onclick={() => {
+        <button  class="accept-complete-btn" onclick={() => {
           userCompletedRequest()
         }}>Complete Request</button>
         {/if}
+</div>
+
       </div>
     </div>
   </div>
 
   <div
-    style="position:absolute; top:75px; bottom:74px; left:0px; right:0px; overflow:auto; background-color: #efefef"
+    style="position:absolute; top:75px; bottom:74px; left:0px; right:0px; overflow:auto; background-color: #C0D6DF"
   >
     {#if currPage === "main"}
       <div style="display: flex; flex-direction: column; align-items: center;">
@@ -449,26 +481,39 @@
             }}
           >
             <div
-              style="background-color: white; width: 350px; margin-top: 20px; padding: 10px"
+              style="background-color: white; width: calc(100vw - 40px); max-width: 500px;; margin-top: 20px; padding: 20px"
             >
-              <div>
+              <div style="padding-bottom: 10px">
                 {#if request.numberOfDogs}
-                  <h4>Dogs: {request.numberOfDogs}</h4>
+                  <h1>Dogs: {request.numberOfDogs}</h1>
                 {/if}
                 {#if request.numberOfCats}
-                  <h4>Cats: {request.numberOfCats}</h4>
+                  <h1>Cats: {request.numberOfCats}</h1>
                 {/if}
               </div>
+
               <div>
-                <p>{request.pickupDay} at {request.pickupTime}</p>
+                {#if request.pickupTime >= "12:00"}
+                <p style="font-size: 20px; padding-bottom: 10px">{request.pickupDay} at {convertTo12Hr(request.pickupTime)}</p>
+                {:else}
+                <p style="font-size: 20px">{request.pickupDay} at {request.pickupTime}&nbsp;AM</p>
+                {/if}
               </div>
-              <div>
-                <p>{request.pickupCity}&nbsp;to&nbsp;{request.dropoffCity}</p>
+              <div style="display: flex; flex-wrap: wrap;">
+                <div style="width: 50%">
+                <p style="font-size: 16px">From:</p>
+                  <p style="font-size: 16px">&nbsp;&nbsp;{request.pickupCity}</p>
+                </div>
+                <div style="width: 50%">
+                <p style="font-size: 16px">To:</p>
+                  <p style="font-size: 16px">&nbsp;&nbsp;{request.dropoffCity}</p>
+                </div>
               </div>
             </div>
           </button>
           {/if}
         {/each}
+        <img src={logo} style="width: 300px" />
       </div>
     {:else if currPage === "user"}
       <div class="overlay" hidden={isOverlayHidden}></div>
@@ -559,7 +604,7 @@
             {/if}
 
             <button
-              style="padding: 10px; width: 150px; margin-top: 20px; border-radius: 20px; border: none; font-weight: bold; color: white; background-color: blue"
+              style="padding: 10px; width: 150px; margin-top: 20px; border-radius: 20px; border: none; font-weight: bold; color: white; background-color: #4A6FA5"
               onclick={updateUser}>Update</button
             >
           </div>
@@ -573,17 +618,19 @@
           <div style="text-align:center; padding-top: 75px">
             <i style="font-size: 75px" class="bi bi-person-circle"></i>
             <h1>User</h1>
-            <p>Completed Requests:&nbsp;{completedRequests}</p>
+            <h3>Completed Transport Requests:&nbsp;{completedRequests}</h3>
           </div>
           <br /><br />
 
           <!-- edit car -->
+           <div style="background-color: white;  width: calc(100vw - 40px); max-width: 500px; margin-bottom: 20px">
+            <h2 class="user-titles">General Info</h2>
           <div
-            style="background-color: white; border: 2px solid black; border-radius: 10px; width: 350px; display: grid; grid-template-columns: 5fr 1fr"
+            style="display: grid; grid-template-columns: 5fr 1fr"
           >
             <div>
               <p
-                style="padding-top: 10px; padding-bottom: 10px; padding-left: 10px; font-size: 20px"
+                class="user-gen-info"
               >
                 <b>Car Type:&nbsp;</b>{user.car}
               </p>
@@ -607,7 +654,7 @@
             <!-- edit cat carrier -->
             <div>
               <p
-                style="padding-top: 10px; padding-bottom: 10px; padding-left: 10px; font-size: 20px"
+                class="user-gen-info"
               >
                 <b>Number of Cat Carriers:&nbsp;</b>{user.catCarrier}
               </p>
@@ -631,7 +678,7 @@
             </div>
             <div>
               <p
-                style="padding-top: 10px; padding-bottom: 10px; padding-left: 10px; font-size: 20px"
+                class="user-gen-info"
               >
                 <b>Number of Dog Carriers:&nbsp</b>{user.dogCarrier}
               </p>
@@ -655,7 +702,7 @@
             <!-- edit preference -->
             <div>
               <p
-                style="padding-top: 10px; padding-bottom: 10px; padding-left: 10px; font-size: 20px"
+                class="user-gen-info"
               >
                 <b>Species Preference:&nbsp</b>{user.preference}
               </p>
@@ -679,7 +726,7 @@
             <!-- edit distance -->
             <div>
               <p
-                style="padding-top: 10px; padding-bottom: 10px; padding-left: 10px; font-size: 20px"
+                class="user-gen-info"
               >
                 <b>Max Distance:&nbsp</b>{user.maxDistance} miles
               </p>
@@ -703,7 +750,7 @@
             <!-- edit comp -->
             <div>
               <p
-                style="padding-top: 10px; padding-bottom: 10px; padding-left: 10px; font-size: 20px"
+                class="user-gen-info"
               >
                 <b>Do you need gas money?:&nbsp;</b>{#if user.comp === "true"}
                   Yes
@@ -728,20 +775,21 @@
               </button>
             </div>
           </div>
+</div>
 
           <!-- edit availability -->
+           <div style="background-color: white;  width: calc(100vw - 40px); max-width: 500px; margin-bottom: 40px">
+            <h2 class="user-titles">Availability</h2>
           <div
-            style="background-color: white; border: 2px solid black; border-radius: 10px; width: 350px; display: grid; grid-template-columns: 5fr 1fr"
+            style="display: grid; grid-template-columns: 5fr 1fr"
           >
             {#each days as day}
               <div>
                 <p
-                  style="padding-top: 10px; padding-bottom: 10px; padding-left: 10px; font-size: 20px"
+                  style="padding-top: 10px; padding-bottom: 10px; padding-left: 30px; font-size: 20px"
                 >
                   {#if user.availability[day].start && user.availability[day].end}
-                    {day}: {user.availability[day].start} - {user.availability[
-                      day
-                    ].end}
+                    {day}: {convertTo12Hr(user.availability[day].start)} - {convertTo12Hr(user.availability[day].end)}
                   {:else}
                     {day}: Unavailable
                   {/if}
@@ -764,6 +812,8 @@
               </div>
             {/each}
           </div>
+</div>
+
         </div>
       </div>
     {:else if currPage === "requests"}
@@ -780,21 +830,32 @@
             }}
           >
             <div
-              style="background-color: white; width: 350px; margin-top: 20px; padding: 10px"
+              style="background-color: white; width: calc(100vw - 40px); max-width: 500px;; margin-top: 20px; padding: 20px"
             >
-              <div>
+              <div style="padding-bottom: 10px">
                 {#if request.numberOfDogs}
-                  <h4>Dogs: {request.numberOfDogs}</h4>
+                  <h1>Dogs: {request.numberOfDogs}</h1>
                 {/if}
                 {#if request.numberOfCats}
-                  <h4>Cats: {request.numberOfCats}</h4>
+                  <h1>Cats: {request.numberOfCats}</h1>
                 {/if}
               </div>
-              <div>
-                <p>{request.pickupDay} at {request.pickupTime}</p>
+              <div style="padding-bottom: 10px">
+                {#if request.pickupTime > "12:59"}
+                <p style="font-size: 20px;">{request.pickupDay} at {convertTo12Hr(request.pickupTime)}</p>
+                {:else}
+                <p style="font-size: 20px">{request.pickupDay} at {request.pickupTime}&nbsp;AM</p>
+                {/if}
               </div>
-              <div>
-                <p>{request.pickupCity}&nbsp;to&nbsp;{request.dropoffCity}</p>
+              <div style="display: flex; flex-wrap: wrap;">
+                <div style="width: 50%">
+                <p style="font-size: 16px">From:</p>
+                  <p style="font-size: 16px">&nbsp;&nbsp;{request.pickupCity}</p>
+                </div>
+                <div style="width: 50%">
+                <p style="font-size: 16px">To:</p>
+                  <p style="font-size: 16px">&nbsp;&nbsp;{request.dropoffCity}</p>
+                </div>
               </div>
             </div>
           </button>
@@ -808,39 +869,5 @@
 </main>
 
 <style>
-  .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 2;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-
-  .popup {
-    position: fixed;
-    top: 25%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 400px;
-    background-color: white;
-    z-index: 3;
-  }
-
-  .transparent-btn {
-    background-color: transparent;
-    border: none;
-  }
-
-  .select,
-  .input {
-    padding: 10px;
-    font-size: 20px;
-    border-radius: 5px;
-  }
-
-  input[type="time"] {
-    font-size: 20px;
-  }
+  @import "./app.css";
 </style>
