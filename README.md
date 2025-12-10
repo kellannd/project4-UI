@@ -1,7 +1,10 @@
 Deployed [Here](https://for-paws-transport.netlify.app)
 
 # What is this project?
-This project is to centralize transportation requests by shelters and rescues to transport dogs and cats. It allows a rescue or shelter to post a transportation request, where people can accept the request to transport the animal.
+This project is to centralize transportation requests by shelters and rescues to transport dogs and cats. It allows a rescue or shelter to post a transportation request, where people can accept the request to transport the animal. It is designed to be both a web and phone app.
+
+### Impact
+Rescues and shelters typically have to rely on their personal network or word of mouth to get transportation requests filled. By creating a centralized place for all shelters and rescues to post, it allows them to expand their network and reach more people who will be able to help them complete their transport requests.
 
 # Design Work
 ## Interview
