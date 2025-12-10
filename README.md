@@ -10,7 +10,13 @@ Rescues and shelters typically have to rely on their personal network or word of
 
 # Design Work
 ## Interview
-I interviewed both people who run rescues and people who participate in the transportation process for this project.
+I interviewed both people who run rescues and people who participate in the transportation process for this project. Everyone I interviews indicated that this work best as a phone app, which helped gear the design of the project to be for mobile.
+
+I asked what the most important information that users need to be in the app.
+
+Volunteers indicated that distance range and availability were the most important features for filtering the requests.
+
+People also indicated that a messaging feature would be useful.
 
 ## Sketching
 Sketches can be found [here](/sketches/)
