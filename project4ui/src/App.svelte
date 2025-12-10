@@ -165,6 +165,7 @@
 }
     ],
   });
+
   let sortedRequests = $state([{
     id: -1,
     comp: "",
@@ -686,9 +687,9 @@
         <div
           style="display: flex; flex-direction: column; align-items: center;"
         >
-          <div style="text-align:center; padding-top: 75px">
+          <div style="text-align:center; padding-top: 50px">
             <i style="font-size: 75px" class="bi bi-person-circle"></i>
-            <h1>User</h1>
+            <h1>Kelly</h1>
             <h3>Completed Transport Requests:&nbsp;{completedRequests}</h3>
           </div>
           <br /><br />
