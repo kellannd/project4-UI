@@ -676,7 +676,7 @@
             {/if}
 
             <button
-              style="padding: 10px; width: 150px; margin-top: 20px; border-radius: 20px; border: none; font-weight: bold; color: white; background-color: #4A6FA5"
+              class="accept-complete-btn"
               onclick={updateUser}>Update</button
             >
           </div>
