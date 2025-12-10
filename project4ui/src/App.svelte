@@ -101,7 +101,7 @@
   pickupDay: "Wednesday",
   pickupTime: "09:00",
   danger: "false",
-  description: "Four kittens being moved from Florence to Louisville for foster home placement.",
+  description: "Four kittens being moved from Covington to Louisville for foster home placement.",
   pickupCity: "Covington, Kentucky",
   distance: 100,
   pickupLocation: "Kenton County Animal Services",
