@@ -123,7 +123,7 @@
   distance: 150,
   pickupLocation: "Cincinnati Animal CARE",
   dropoffCity: "Indianapolis, Indiana",
-  dropoffLocation: "",
+  dropoffLocation: "Happy Tails Rescue",
   numberOfCats: 0,
   numberOfDogs: 2,
   carriersProvided: "false",
