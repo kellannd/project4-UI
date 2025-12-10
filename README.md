@@ -11,7 +11,7 @@ Rescues and shelters typically have to rely on their personal network or word of
 I interviewed both people who run rescues and people who participate in the transportation process for this project.
 
 ## Sketching
-Sketches can be found [here]
+Sketches can be found [here](/sketches/)
 
 # Implimentation
 Svelte was used to create the base for this app and was hosted on Netlify.
@@ -20,6 +20,8 @@ Svelte was used to create the base for this app and was hosted on Netlify.
 All icons used were taken from [Bootstrap Icons](https://icons.getbootstrap.com/).
 
 Styling for text input boxes, popups, and overlays inspired by [w3schools](https://www.w3schools.com/css/default.asp).
+
+All images from [Canva](https://www.canva.com/templates).
 
 # Interface
 
